@@ -12,7 +12,7 @@ public class GameManager
     public static int points = 0;
     public static int currentLives = 5;
     public static int currentLevel = 0;
-    public static int maxLevels = 3;
+    public static int maxLevels = 4;
     public static float playerMovementSpeed = 10f;
     public static float timeRemaining = 2f;
     public static float maxTime = 2f;
