@@ -13,12 +13,14 @@ public class Extra_Life : MonoBehaviour
             if((GameManager.currentLives + 1) > GameManager.maxlives)
             {
                 GameManager.points += 100;
-                collision.transform.parent.GetComponent<Main>().UpdatePointsText();
+                GameManager.Main.GetComponent<Main>().UpdatePointsText();
+                //collision.transform.parent.GetComponent<Main>().UpdatePointsText();
             }
             else
             {
                 GameManager.currentLives++;
-                collision.transform.parent.GetComponent<Main>().UpdateLifeText();
+                GameManager.Main.GetComponent<Main>().UpdateLifeText();
+                //collision.transform.parent.GetComponent<Main>().UpdateLifeText();
             }
 
             gameObject.SetActive(false);

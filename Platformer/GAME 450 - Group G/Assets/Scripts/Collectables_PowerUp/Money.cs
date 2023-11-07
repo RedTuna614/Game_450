@@ -12,7 +12,8 @@ public class Money : MonoBehaviour
         {
             GameManager.points++;
 
-            collision.transform.parent.GetComponent<Main>().UpdatePointsText();
+           // collision.transform.parent.GetComponent<Main>().UpdatePointsText();
+            GameManager.Main.GetComponent<Main>().UpdatePointsText();
 
             gameObject.SetActive(false);
         }

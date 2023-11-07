@@ -577,8 +577,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CheckPoints: {fileID: 979997295}
-  Collectables: {fileID: 0}
-  PowerUps: {fileID: 0}
+  Collectables: {fileID: 1607314819}
+  PowerUps: {fileID: 348451371}
 --- !u!1 &81126803
 GameObject:
   m_ObjectHideFlags: 0
@@ -7230,8 +7230,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CheckPoints: {fileID: 81126804}
-  Collectables: {fileID: 0}
-  PowerUps: {fileID: 0}
+  Collectables: {fileID: 1042581509}
+  PowerUps: {fileID: 92278800}
 --- !u!1 &501820579
 GameObject:
   m_ObjectHideFlags: 0
@@ -12232,8 +12232,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CheckPoints: {fileID: 1965132675}
-  Collectables: {fileID: 0}
-  PowerUps: {fileID: 0}
+  Collectables: {fileID: 1883171557}
+  PowerUps: {fileID: 1440970004}
 --- !u!1 &738612624
 GameObject:
   m_ObjectHideFlags: 0
