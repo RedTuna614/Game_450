@@ -9,6 +9,7 @@ public class Main : MonoBehaviour
     public GameObject Levels, Player;
 
     private float timeRemaining;
+    private bool changeLevel;
 
     private void Start()
     {
@@ -64,10 +65,12 @@ public class Main : MonoBehaviour
         GameManager.currentLevel++;
         Levels.transform.GetChild(GameManager.currentLevel).gameObject.SetActive(true);
         GameManager.checkPoint = null;
+        changeLevel = true;
         StopCoroutine(TimeStart());
         GameManager.points += Mathf.RoundToInt(timeRemaining);
         Respawn(false, false);
         StartCoroutine(TimeStart());
+        changeLevel = false;
     }
 
     private void Reset()
@@ -75,6 +78,7 @@ public class Main : MonoBehaviour
         UpdateLifeText();
         UpdatePointsText();
         timeText.text = "Time Remaining: \n  2:00";
+        changeLevel = false;
         
     }
 
@@ -118,6 +122,9 @@ public class Main : MonoBehaviour
 
         for (float i = GameManager.maxTime; i > 0; i -= (Time.deltaTime/60))
         {
+            if (changeLevel)
+                break;
+
             timeRemaining = i;
 
             timeText.text = "Time Remaining: \n " + i.ToString();
@@ -125,7 +132,9 @@ public class Main : MonoBehaviour
             yield return null;
         }
 
-        TimeOut();
+
+        if(!changeLevel)
+            TimeOut();
 
     }
 }
