@@ -52,11 +52,16 @@ public class Enemy : MonoBehaviour
             }
             else
             {
+                /*
                 GameManager.currentLives--;
                 GameManager.Main.GetComponent<Main>().UpdateLifeText();
                 collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(dir, 1) * pushForce);
                 dir *= -1;
                 StartCoroutine(CoolDown());
+                */
+
+                GameManager.Main.GetComponent<Main>().PlayerDied();
+
             }
         }
     }
