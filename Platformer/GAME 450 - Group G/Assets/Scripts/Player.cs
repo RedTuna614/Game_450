@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     private int jumpCount;
     private bool isSprinting;
     private bool isDashing;
+    private bool isSliding;
+    private bool isAttacking;
 
     // Start is called before the first frame update
     void Start()
@@ -38,10 +40,18 @@ public class Player : MonoBehaviour
         if(Input.GetKey(KeyCode.D))
         {
             transform.Translate(Vector2.right * GameManager.playerMovementSpeed * Time.deltaTime);
+            if(isSliding)
+            {
+                GetComponent<Rigidbody2D>().velocity += (Vector2.right * GameManager.playerMovementSpeed * Time.deltaTime);
+            }
         }
         if(Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector2.left * GameManager.playerMovementSpeed * Time.deltaTime);
+            if(isSliding)
+            {
+                GetComponent<Rigidbody2D>().velocity += (Vector2.left * GameManager.playerMovementSpeed * Time.deltaTime);
+            }
         }
         if(Input.GetKeyDown(KeyCode.Space) && jumpCount < 2)
         {
@@ -56,6 +66,28 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(Dash(-1));
         }
+
+        if (Input.GetKeyDown(KeyCode.F) && !isAttacking)
+        {
+            isAttacking = true;
+            StartCoroutine(Attack());
+        }
+
+    }
+
+    public void SetisSliding(bool newSlide)
+    {
+        isSliding = newSlide;
+    }
+
+    public bool GetisAttacking()
+    {
+        return isAttacking;
+    }
+
+    public void ResetVelocity()
+    {
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 
     public void ResetPlayer()
@@ -89,6 +121,13 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         isDashing = false;
+    }
+
+    private IEnumerator Attack()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        isAttacking = false;
     }
 
 }

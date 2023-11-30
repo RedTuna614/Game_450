@@ -10,6 +10,7 @@ public class Main : MonoBehaviour
 
     private float timeRemaining;
     private bool changeLevel;
+    private bool stopTimer;
 
     private void Start()
     {
@@ -68,9 +69,16 @@ public class Main : MonoBehaviour
         changeLevel = true;
         StopCoroutine(TimeStart());
         GameManager.points += Mathf.RoundToInt(timeRemaining);
+        timeRemaining = GameManager.maxTime;
         Respawn(false, false);
         StartCoroutine(TimeStart());
         changeLevel = false;
+    }
+
+    public void EndTimer()
+    {
+        //StopCoroutine(TimeStart());
+        stopTimer = true;
     }
 
     private void Reset()
@@ -78,23 +86,26 @@ public class Main : MonoBehaviour
         UpdateLifeText();
         UpdatePointsText();
         timeText.text = "Time Remaining: \n  2:00";
+        timeRemaining = GameManager.maxTime;
         changeLevel = false;
         
     }
 
     private void TimeOut()
     {
-        int currentLevel = GameManager.currentLevel;
-        GameManager.points = 0;
-        GameManager.checkPoint = null;
-        GameManager.currentLevel = currentLevel;
+        if(GameManager.currentLevel != Levels.transform.childCount - 1)
+        {
+            int currentLevel = GameManager.currentLevel;
+            GameManager.points = 0;
+            GameManager.checkPoint = null;
+            GameManager.currentLevel = currentLevel;
 
-        UpdatePointsText();
+            UpdatePointsText();
 
-        Respawn(true, false);
+            Respawn(true, false);
 
-        StartCoroutine(TimeStart());
-
+            StartCoroutine(TimeStart());
+        }
     }
 
     private void Respawn(bool timeOut, bool noLives)
@@ -120,20 +131,23 @@ public class Main : MonoBehaviour
     private IEnumerator TimeStart()
     {
 
-        for (float i = GameManager.maxTime; i > 0; i -= (Time.deltaTime/60))
+        for (timeRemaining = GameManager.maxTime; timeRemaining > 0; timeRemaining -= (Time.deltaTime/60))
         {
             if (changeLevel)
                 break;
 
-            timeRemaining = i;
+            if (stopTimer)
+                break;
 
-            timeText.text = "Time Remaining: \n " + i.ToString();
+            //timeRemaining = i;
+
+            timeText.text = "Time Remaining: \n " + timeRemaining.ToString();
 
             yield return null;
         }
 
 
-        if(!changeLevel)
+        if(!changeLevel && !stopTimer)
             TimeOut();
 
     }
