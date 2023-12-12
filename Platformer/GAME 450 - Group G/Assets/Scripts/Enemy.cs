@@ -32,6 +32,14 @@ public class Enemy : MonoBehaviour
             transform.position.x <= leftEnd)
         {
             dir *= -1;
+            if(dir == -1)
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+            }
         }
     }
 
